@@ -1,0 +1,27 @@
+from student import Student
+from manager import StudentManager
+
+manager = StudentManager()
+student1 = Student("101", "Rahul", 90)
+student2 = Student("102", "Karim", 80)
+student3 = Student("103", "Rahim", 75)
+student4 = Student("104", "sakib", 62)
+
+manager.add_student(student1)
+manager.add_student(student2)
+manager.add_student(student3)
+manager.add_student(student4)
+manager.show_students()
+print("\nSearching Student......\n")
+
+manager.search_student("102")
+manager.search_student("106")
+print("\nUpdating Student......\n")
+manager.update_student("102", "Karim Hasan", 95)
+manager.update_student("101", "wasimul Bari", 70)
+manager.update_student("103", "zeba", 90)
+manager.show_students()
+# print("ID:", student1.student_id)
+# print("Name:", student1.name)
+# print("Marks:", student1.marks)
+# print("Grade:", student1.calculate_grade())
