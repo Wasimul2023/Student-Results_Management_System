@@ -4,7 +4,15 @@ class StudentManager:
     def __init__(self):
         self.students =[]
     def add_student(self,student):
+       for s in self.students:
+          if s.student_id == student.student_id:
+             print("Student Id Already Exists.")
+             return
+          
        self.students.append(student)
+       print("Stdent Added Successfully")
+   
+   
     def show_students(self):
         for student in self.students:
            print("_____________")
