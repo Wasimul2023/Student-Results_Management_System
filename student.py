@@ -22,4 +22,11 @@ class Student:
                 return "D"
             else :
               return "F"
-    
+   def to_dict(self):
+       return{
+           "student_id":self.student_id,
+           "name":self.name,
+           "marks":self.marks
+       }
+   
+               

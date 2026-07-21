@@ -1,3 +1,5 @@
+import json
+from student import Student
 class StudentManager:
     def __init__(self):
         self.students =[]
@@ -31,8 +33,54 @@ class StudentManager:
            student.name = new_name
            student.marks = new_marks
            print("Student Updated Successfully")
-           return
-   
-print("Student Not Found")
+           return 
+        print("Student Not Found")
+
+    def delete_student(self,student_id):
+        for student in self.students:
+           if student.student_id == student_id:
+             self.students.remove(student)
+             print("Student Deleted")
+
+
+    print("Student Not Found")
+
+    def save_students(self):
+       data = []
+       for student in self.students:
+           data.append(student.to_dict())
+       with open("students.json","w") as file:
+           json.dump(data,file,indent=4)
+
+     
+       print("Students Saved Successfully")   
+    
+    
+    def load_students(self):
+        try:
+           with open("students.json","r") as file:
+              data = json.load(file)
+           self.students =[]
+
+           for student_data in data:
+              student = Student(
+
+    student_data["student_id"],
+
+    student_data["name"],
+
+    student_data["marks"]
+
+)
+              self.students.append(student)
+ 
+           print("Students Loaded Successfully")
+         
+        except FileExistsError:
+           print("No saved file found.")
+
+  
+
+
 
 
