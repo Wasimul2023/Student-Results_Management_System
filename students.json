@@ -1,22 +1,17 @@
 [
     {
-        "student_id": "101",
-        "name": "wasimul Bari",
-        "marks": 70
+        "student_id": "107",
+        "name": "Bari",
+        "marks": 78
     },
     {
-        "student_id": "102",
-        "name": "Karim Hasan",
-        "marks": 95
+        "student_id": "108",
+        "name": "Zeba",
+        "marks": 99
     },
     {
-        "student_id": "104",
-        "name": "sakib",
-        "marks": 62
-    },
-    {
-        "student_id": "105",
-        "name": "sakib",
-        "marks": 62
+        "student_id": "109",
+        "name": "karin",
+        "marks": 99
     }
 ]

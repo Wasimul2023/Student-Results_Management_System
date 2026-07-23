@@ -1,4 +1,8 @@
 import tkinter as tk
+from student import Student 
+from manager import StudentManager
+manager = StudentManager()
+manager.load_students()
 window = tk.Tk()
 window.title("Student Results Management System")
 window.geometry("600x500")
@@ -18,10 +22,17 @@ name_entry.pack()
 tk.Label(window, text="Marks").pack()
 marks_entry = tk.Entry(window)
 marks_entry.pack()
-
 def add_student():
+   student_id = id_entry.get()
+   name = name_entry.get()
+   marks = int(marks_entry.get())
+   student = Student(student_id, name, marks)
+   if manager.add_student(student):
+     manager.save_students()
+  
 
-    print("Add Student Button Clicked")
+ 
+
 
 add_button = tk.Button(
 

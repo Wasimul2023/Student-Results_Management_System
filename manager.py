@@ -7,10 +7,11 @@ class StudentManager:
        for s in self.students:
           if s.student_id == student.student_id:
              print("Student Id Already Exists.")
-             return
+             return False
           
        self.students.append(student)
        print("Stdent Added Successfully")
+       return True
    
    
     def show_students(self):
@@ -51,7 +52,6 @@ class StudentManager:
              print("Student Deleted")
 
 
-    print("Student Not Found")
 
     def save_students(self):
        data = []
@@ -84,7 +84,7 @@ class StudentManager:
  
            print("Students Loaded Successfully")
          
-        except FileExistsError:
+        except FileNotFoundError:
            print("No saved file found.")
 
   
