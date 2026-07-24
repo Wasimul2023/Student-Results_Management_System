@@ -41,15 +41,24 @@ class StudentManager:
         if student.student_id == student_id:
            student.name = new_name
            student.marks = new_marks
+           self.save_students()
            print("Student Updated Successfully")
-           return 
-        print("Student Not Found")
+           return True
+        
+
+       print("Student Not Found")
+       return False
 
     def delete_student(self,student_id):
         for student in self.students:
            if student.student_id == student_id:
              self.students.remove(student)
-             print("Student Deleted")
+             print("Student Deleted Successfully")
+             return True
+           
+        print("Student Not Found")
+        return False
+         
 
 
 
