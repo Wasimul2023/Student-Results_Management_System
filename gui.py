@@ -6,22 +6,25 @@ manager = StudentManager()
 manager.load_students()
 window = tk.Tk()
 window.title("Student Results Management System")
-window.geometry("600x500")
+window.geometry("650x600")
+window.resizable(False, False)
+window.configure(bg="#F5F7FA")
 title = tk.Label(
    window,
    text="Student Results Management System",
-   font=("Arial", 16, "bold")
+   font=("Arial", 16, "bold"),
+   bg="#F5F7FA"
 )
 
 title.pack(pady=20)
-tk.Label(window, text="Student ID").pack()
-id_entry = tk.Entry(window)
+tk.Label(window, text="Student ID", bg= "#F5F7FA").pack()
+id_entry = tk.Entry(window, width=30)
 id_entry.pack()
 tk.Label(window, text="Name").pack()
-name_entry = tk.Entry(window)
+name_entry = tk.Entry(window, width=30)
 name_entry.pack()
 tk.Label(window, text="Marks").pack()
-marks_entry = tk.Entry(window)
+marks_entry = tk.Entry(window, width=30)
 marks_entry.pack()
 def add_student():
     try:
@@ -86,8 +89,16 @@ def delete_student():
         marks_entry.delete(0, tk.END)
         messagebox.showinfo("Successful","Student deleted Sucessfully")
 
-listbox = tk.Listbox(window, width=50, height=8)
-listbox.pack(pady=10)         
+listbox = tk.Listbox(
+    window,
+    width=60, 
+    height=10,
+    font=("Times New Roman",10)
+    )
+listbox.pack(pady=10)  
+
+button_frame = tk.Frame(window)
+button_frame.pack(pady=5)
       
 def show_students():
     listbox.delete(0, tk.END)
@@ -123,63 +134,103 @@ def show_statistics():
        
 add_button = tk.Button(
 
-    window,
+    button_frame,
 
     text="Add Student",
+    width=18,
+    height=2,
+    bg="#4CAF50",
+    fg="White",
+    cursor= "hand2",
 
     command=add_student
 
 )
 
-add_button.pack(pady=10)
+add_button.grid(row=0, column=0)
 
 search_button = tk.Button(
-   window,
+   button_frame,
    text="Serach Student",
+   width=18,
+   height=2,
+   bg="#007BFF",
+   fg="White",
+   activebackground="#0069D9",
+   cursor= "hand2",
    command=search_student
 
 )
 
-search_button.pack(pady=5)
+search_button.grid(row=0, column=1)
 
 update_button =tk.Button(
-    window,
+    button_frame,
     text="Update Student",
+    width=18,
+    height=2,
+    bg="#FD7E14",
+    fg="White",
+    activebackground="#E96B09",
+    cursor= "hand2",
     command=update_student
 )
 
-update_button.pack(pady=5)
+update_button.grid(row=1, column=0)
 
 
 
 delete_button =tk.Button(
-    window,
+    button_frame,
     text="Delete Student",
+    width=18,
+    height=2,
+    bg="#DC3545",
+   fg="White",
+   activebackground="#C82333",
+   cursor= "hand2",
     command=delete_student,
 )
 
-delete_button.pack(pady=5)
-
+delete_button.grid(row=1, column=1)
 show_button = tk.Button(
-    window,
+    button_frame,
     text="Show Student",
+    width=18,
+    height=2,
+    bg="#6F42C1",
+   fg="White",
+   activebackground="#5A32A3",
+   cursor= "hand2",
     command=show_students
 )
-show_button.pack()
+show_button.grid(row=2, column=0)
 
 clear_button = tk.Button(
-    window,
+    button_frame,
     text="clear",
+    width=18,
+    height=2,
+    bg="#6C757D",
+   fg="White",
+   activebackground="#5A6268",
+   cursor= "hand2",
     command=clear_fields
 )
-clear_button.pack()
+clear_button.grid(row=2, column=1)
 
 statistics_button = tk.Button(
-    window,
+    button_frame,
     text="Show statistics",
+    width=18,
+    height=2,
+    bg="#20C997",
+   fg="White",
+   activebackground="#17A589",
+   cursor= "hand2",
     command=show_statistics
 )
-statistics_button.pack(pady=5)
+statistics_button.grid(row=3, column=0, columnspan=2, pady=10)
 
-
+show_students()
 window.mainloop()
