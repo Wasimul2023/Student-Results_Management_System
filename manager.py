@@ -1,4 +1,5 @@
 import json
+import numpy as np 
 from student import Student
 class StudentManager:
     def __init__(self):
@@ -96,8 +97,22 @@ class StudentManager:
         except FileNotFoundError:
            print("No saved file found.")
 
-  
+    def show_statistics(self):
+       if len(self.students) == 0:
+         return None 
+          
 
+       marks = np.array([student.marks for student in self.students])
+
+       average = np.mean(marks)
+       highest = np.max(marks)
+       lowest = np.min(marks)
+       total  = len(marks)
+
+       return average, highest, lowest, total
+
+       
+    
 
 
 

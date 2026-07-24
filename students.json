@@ -33,5 +33,10 @@
         "student_id": "112",
         "name": "Arafat",
         "marks": 90
+    },
+    {
+        "student_id": "115",
+        "name": "Abdul",
+        "marks": 45
     }
 ]

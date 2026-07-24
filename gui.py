@@ -102,6 +102,25 @@ def clear_fields():
     marks_entry.delete(0, tk.END)
 
 
+
+def show_statistics():
+    results = manager.show_statistics()
+
+    if results is None:
+        messagebox.showerror("Error","No Student Data Found")
+        return 
+       
+    average, highest, lowest, total = results
+    messagebox.showinfo("Stiudent Statistic", f"Total Students : {total}\n"
+
+        f"Average Marks : {average:.2f}\n"
+
+        f"Highest Marks : {highest}\n"
+
+        f"Lowest Marks : {lowest}"
+ )
+
+       
 add_button = tk.Button(
 
     window,
@@ -154,5 +173,13 @@ clear_button = tk.Button(
     command=clear_fields
 )
 clear_button.pack()
+
+statistics_button = tk.Button(
+    window,
+    text="Show statistics",
+    command=show_statistics
+)
+statistics_button.pack(pady=5)
+
 
 window.mainloop()
