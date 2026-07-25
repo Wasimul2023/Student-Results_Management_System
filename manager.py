@@ -142,8 +142,10 @@ class StudentManager:
        highest = np.max(marks)
        lowest = np.min(marks)
        total  = len(marks)
+       passed = sum(1 for student in self.students if student.marks >=50)
+       failed = total - passed
 
-       return average, highest, lowest, total
+       return average, highest, lowest, total, passed, failed
     
 
 

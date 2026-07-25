@@ -127,14 +127,18 @@ def show_statistics():
         messagebox.showerror("Error","No Student Data Found")
         return 
        
-    average, highest, lowest, total = results
+    average, highest, lowest, total, passed, failed = results
     messagebox.showinfo("Student Statistic", f"Total Students : {total}\n"
 
         f"Average Marks : {average:.2f}\n"
 
         f"Highest Marks : {highest}\n"
 
-        f"Lowest Marks : {lowest}"
+        f"Lowest Marks : {lowest}\n"
+
+        f"Passed : {passed}\n"
+
+        f"Failed : {failed}\n"
  )
 def setup_filter_sort_ui(parent_frame):
     filter_sort_frame = tk.Frame(parent_frame, bg="#F5F7FA")
