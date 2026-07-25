@@ -112,6 +112,7 @@ def show_students(records=None):
         
         text = f"{s_id} | {s_name} | {s_marks} | {s_grade}"
         listbox.insert(tk.END, text)
+    window.title(f"Student Results Management System - ({len(manager.students)} Students)")
 
 def clear_fields():
     id_entry.delete(0, tk.END)
