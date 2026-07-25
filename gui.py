@@ -88,7 +88,7 @@ def delete_student():
         id_entry.delete(0, tk.END)
         name_entry.delete(0, tk.END)
         marks_entry.delete(0, tk.END)
-        messagebox.showinfo("Successful","Student deleted Sucessfully")
+        messagebox.showinfo("Successful","Student deleted Successfully")
 
 listbox = tk.Listbox(
     window,
@@ -128,7 +128,7 @@ def show_statistics():
         return 
        
     average, highest, lowest, total = results
-    messagebox.showinfo("Stiudent Statistic", f"Total Students : {total}\n"
+    messagebox.showinfo("Student Statistic", f"Total Students : {total}\n"
 
         f"Average Marks : {average:.2f}\n"
 
@@ -208,7 +208,7 @@ add_button.grid(row=0, column=0)
 
 search_button = tk.Button(
    button_frame,
-   text="Serach Student",
+   text="Search Student",
    width=18,
    height=2,
    bg="#007BFF",
@@ -265,7 +265,7 @@ show_button.grid(row=2, column=0)
 
 clear_button = tk.Button(
     button_frame,
-    text="clear",
+    text="Clear",
     width=18,
     height=2,
     bg="#6C757D",
