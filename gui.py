@@ -28,21 +28,29 @@ tk.Label(window, text="Marks").pack()
 marks_entry = tk.Entry(window, width=30)
 marks_entry.pack()
 def add_student():
-    try:
-      student_id = id_entry.get()
-      name = name_entry.get()
-      marks = int(marks_entry.get())
-      student = Student(student_id, name, marks)
-      if manager.add_student(student):
-         manager.save_students()
-         messagebox.showinfo("Success","Student Added Successfully")
+    student_id = id_entry.get().strip()
+    name = name_entry.get().strip()
+    marks_raw = marks_entry.get().strip()
 
-         id_entry.delete(0,tk.END)
-         name_entry.delete(0,tk.END)
-         marks_entry.delete(0,tk.END)
+    if not student_id or not name or not marks_raw:
+        messagebox.showerror("Validation Error", "All fields (ID, Name, Marks) are required!")
+        return
+
+    try:
+        marks = int(marks_raw)
+        if not (0 <= marks <= 100):
+            messagebox.showerror("Validation Error", "Marks must be between 0 and 100!")
+            return
+
+        student = Student(student_id, name, marks)
+        if manager.add_student(student):
+            manager.save_students()
+            show_students()
+            clear_fields()
+            messagebox.showinfo("Success", "Student Added Successfully")
+
     except ValueError:
-       messagebox.showerror("Error","Please Enter Valid Numeric Number")
-  
+        messagebox.showerror("Validation Error", "Please enter a valid numeric integer for marks!")
 
 def search_student():
    student_id = id_entry.get()
@@ -66,18 +74,31 @@ def search_student():
         
 
 def update_student():
-   student_id= id_entry.get()
-   name = name_entry.get()
-   try:
-         marks = int(marks_entry.get())
-   except ValueError:
-         print("Please enter valid numeric number.")
-         return
-   manager.update_student(student_id, name, marks)
-   manager.save_students()
-   show_students()
-   messagebox.showinfo("success ", "Updated Successfully")
+    student_id = id_entry.get().strip()
+    name = name_entry.get().strip()
+    marks_raw = marks_entry.get().strip()
 
+    if not student_id or not name or not marks_raw:
+        messagebox.showerror("Validation Error", "All fields (ID, Name, Marks) are required!")
+        return
+
+    try:
+        marks = int(marks_raw)
+        if not (0 <= marks <= 100):
+            messagebox.showerror("Validation Error", "Marks must be between 0 and 100!")
+            return
+
+        if manager.update_student(student_id, name, marks):
+            manager.save_students()
+            show_students()
+            clear_fields()
+            messagebox.showinfo("Success", "Student Updated Successfully")
+        else:
+            messagebox.showerror("Error", "Student ID Not Found")
+
+    except ValueError:
+        messagebox.showerror("Validation Error", "Please enter a valid numeric integer for marks!")
+        
 def delete_student():
     student_id =  id_entry.get()
     
