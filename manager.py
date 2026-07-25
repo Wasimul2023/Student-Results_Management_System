@@ -97,6 +97,40 @@ class StudentManager:
         except FileNotFoundError:
            print("No saved file found.")
 
+
+    def sort_students(self, key="name", reverse=False):
+        if not self.students:
+            return []
+
+        def get_attr(student):
+            if isinstance(student, dict):
+                val = student.get(key, 0 if key in ['marks', 'gpa', 'score'] else "")
+            else:
+                val = getattr(student, key, 0 if key in ['marks', 'gpa', 'score'] else "")
+            return val if val is not None else ""
+
+        return sorted(self.students, key=get_attr, reverse=reverse)
+
+    def filter_students(self, status_filter="all"):
+        if status_filter == "all":
+            return self.students
+
+        filtered = []
+        for student in self.students:
+            marks = getattr(student, "marks", getattr(student, "score", 0))
+            
+            try:
+                marks = float(marks)
+            except ValueError:
+                marks = 0
+
+            if status_filter == "pass" and marks >= 70:
+                filtered.append(student)
+            elif status_filter == "fail" and marks < 70:
+                filtered.append(student)
+
+        return filtered
+    
     def show_statistics(self):
        if len(self.students) == 0:
          return None 
@@ -110,9 +144,8 @@ class StudentManager:
        total  = len(marks)
 
        return average, highest, lowest, total
-
-       
     
 
 
 
+      

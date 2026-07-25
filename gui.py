@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from student import Student 
 from manager import StudentManager
 from tkinter import messagebox
@@ -6,7 +7,7 @@ manager = StudentManager()
 manager.load_students()
 window = tk.Tk()
 window.title("Student Results Management System")
-window.geometry("650x600")
+window.geometry("650x900")
 window.resizable(False, False)
 window.configure(bg="#F5F7FA")
 title = tk.Label(
@@ -100,12 +101,17 @@ listbox.pack(pady=10)
 button_frame = tk.Frame(window)
 button_frame.pack(pady=5)
       
-def show_students():
+def show_students(records=None):
     listbox.delete(0, tk.END)
-    for student in manager.students:
-        text =f"{student.student_id} | {student.name} | {student.marks} | {student.calculate_grade()}"
-        listbox.insert(tk.END, text)        
-
+    student_data = records if records is not None else manager.students
+    for student in student_data:
+        s_id = getattr(student, "student_id", getattr(student, "id", ""))
+        s_name = getattr(student, "name", "")
+        s_marks = getattr(student, "marks", "")
+        s_grade = student.calculate_grade() if hasattr(student, "calculate_grade") else getattr(student, "grade", "")
+        
+        text = f"{s_id} | {s_name} | {s_marks} | {s_grade}"
+        listbox.insert(tk.END, text)
 
 def clear_fields():
     id_entry.delete(0, tk.END)
@@ -130,8 +136,59 @@ def show_statistics():
 
         f"Lowest Marks : {lowest}"
  )
+def setup_filter_sort_ui(parent_frame):
+    filter_sort_frame = tk.Frame(parent_frame, bg="#F5F7FA")
+    filter_sort_frame.pack(pady=5)
 
-       
+    tk.Label(filter_sort_frame, text="Status:", bg="#F5F7FA").grid(row=0, column=0, padx=2, pady=2)
+    
+    global filter_type, sort_key, sort_order
+    filter_type = ttk.Combobox(filter_sort_frame, values=["all", "pass", "fail"], state="readonly", width=6)
+    filter_type.set("all")
+    filter_type.grid(row=0, column=1, padx=2, pady=2)
+
+    btn_filter = tk.Button(
+        filter_sort_frame,
+        text="Filter",
+        width=8,
+        bg="#2196F3",
+        fg="white",
+        cursor="hand2",
+        command=on_filter
+    )
+    btn_filter.grid(row=0, column=2, padx=2, pady=2)
+
+    sort_key = ttk.Combobox(filter_sort_frame, values=["name", "id", "marks"], state="readonly", width=6)
+    sort_key.set("name")
+    sort_key.grid(row=1, column=0, padx=2, pady=2)
+
+    sort_order = tk.BooleanVar(value=False)
+    chk_desc = tk.Checkbutton(filter_sort_frame, text="Desc", variable=sort_order, bg="#F5F7FA")
+    chk_desc.grid(row=1, column=1, padx=2, pady=2)
+
+    btn_sort = tk.Button(
+        filter_sort_frame,
+        text="Sort",
+        width=8,
+        bg="#9C27B0",
+        fg="white",
+        cursor="hand2",
+        command=on_sort
+    )
+    btn_sort.grid(row=1, column=2, padx=2, pady=2)
+
+def on_filter():
+    status = filter_type.get()
+    filtered_results = manager.filter_students(status_filter=status)
+    show_students(filtered_results)
+
+def on_sort():
+    key = sort_key.get()
+    reverse = sort_order.get()
+    sorted_results = manager.sort_students(key=key, reverse=reverse)
+    show_students(sorted_results)
+
+
 add_button = tk.Button(
 
     button_frame,
@@ -233,4 +290,5 @@ statistics_button = tk.Button(
 statistics_button.grid(row=3, column=0, columnspan=2, pady=10)
 
 show_students()
+setup_filter_sort_ui(window)
 window.mainloop()
